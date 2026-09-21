@@ -1,0 +1,7 @@
+# Baseline packages required by the current course material.
+build-essential
+gcc
+gdb
+make
+git
+nano

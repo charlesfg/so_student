@@ -1,0 +1,11 @@
+# Install these only when an exercise or tutorial requires them.
+vim
+valgrind
+net-tools
+traceroute
+strace
+ltrace
+procps
+psmisc
+man-db
+manpages-dev

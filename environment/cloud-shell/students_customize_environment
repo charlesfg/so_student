@@ -1,0 +1,63 @@
+#!/bin/bash
+set -e
+
+# Remove dpkg man-page exclusion filters
+rm -f /etc/dpkg/dpkg.cfg.d/excludes
+rm -f /etc/dpkg/dpkg.cfg.d/01_nodoc
+
+# Ensure the man database package and core tools are present
+apt-get update -y
+apt-get install -y --reinstall man-db manpages manpages-posix
+
+INSTALL_PACKAGES=(
+    man-db 
+    manpages 
+    manpages-posix
+    coreutils
+    bash
+    git
+    curl
+    tar
+    grep
+    sed
+    gcc
+    gawk
+    build-essential
+    gcc
+    gdb
+    make
+    git
+    nano 
+    most
+
+)
+
+apt-get install -y ${INSTALL_PACKAGES[@]}
+
+
+# SELECTIVE UNMINIMIZATION:
+# Add only the specific packages whose manual pages you need:
+TARGET_PACKAGES=(
+    man-db 
+    manpages 
+    manpages-posix
+    coreutils
+    bash
+    git
+    curl
+    tar
+    grep
+    sed
+    gcc
+    gawk
+)
+
+
+apt-get install -y --reinstall -o Dpkg::Options::="--force-overwrite" "${TARGET_PACKAGES[@]}"
+
+# Rebuild the man index cache
+mandb -c
+
+# Remove the dum man script
+rm /usr/bin/man
+ln -s /usr/bin/man.REAL /usr/bin/man

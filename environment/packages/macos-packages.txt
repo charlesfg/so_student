@@ -1,0 +1,6 @@
+# Homebrew packages for portable exercises on macOS.
+gcc
+gdb
+make
+git
+nano
